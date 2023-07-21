@@ -169,19 +169,27 @@ const chunksRef = useRef([]);
   const handleSwitchCamera = () => {
     // Switch between front and back camera by selecting a different device ID.
     setSelectedDeviceId((prevDeviceId) => {
-      // Find the index of the current device ID in the list of available cameras.
-      const cameras = navigator.mediaDevices.enumerateDevices().filter(
-        (device) => device.kind === "videoinput"
-      );
-      const currentIndex = cameras.findIndex(
-        (camera) => camera.deviceId === prevDeviceId
-      );
-
-      // Get the next camera in the list or loop back to the first one.
-      const nextIndex = (currentIndex + 1) % cameras.length;
-      return cameras[nextIndex].deviceId;
+      // Enumerate devices and convert the result to an array
+      navigator.mediaDevices.enumerateDevices()
+        .then((devices) => {
+          const cameras = devices.filter((device) => device.kind === "videoinput");
+  
+          // Find the index of the current device ID in the list of available cameras.
+          const currentIndex = cameras.findIndex(
+            (camera) => camera.deviceId === prevDeviceId
+          );
+  
+          // Get the next camera in the list or loop back to the first one.
+          const nextIndex = (currentIndex + 1) % cameras.length;
+          return cameras[nextIndex].deviceId;
+        })
+        .catch((error) => {
+          // Handle any errors that may occur during enumeration
+          console.error("Error enumerating devices:", error);
+        });
     });
   };
+  
   
 
   return (
