@@ -51,9 +51,10 @@ const chunksRef = useRef([]);
   //     });
   // };
   const getVideo = (facingMode ) => {
+    console.log(facingMode)
     navigator.mediaDevices
     .getUserMedia({
-      video: { facingMode: { exact: facingMode  }, width: 300 },
+      video: { facingMode: { exact: facingMode }, width: 300 },
     })
       .then((stream) => {
         let video = videoRef.current;
@@ -83,7 +84,7 @@ const chunksRef = useRef([]);
         mediaRecorderRef.current = mediaRecorder;
       })
       .catch((err) => {
-        console.error("error:", err);
+        console.error("Error accessing media devices:", err.name, err.message);
       });
   };
 
@@ -144,11 +145,13 @@ const chunksRef = useRef([]);
     console.log(strip.firstChild)
   };
 
-  const [facingMode, setFacingMode] = useState("user"); 
+  const [facingMode, setFacingMode] = useState("environment"); 
   const toggleCamera = () => {
     const newFacingMode = facingMode === "user" ? "environment" : "user";
     setFacingMode(newFacingMode);
     getVideo(newFacingMode);
+    // console.log(facingMode)
+  
   };
   
 
