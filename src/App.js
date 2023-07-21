@@ -39,44 +39,98 @@ const chunksRef = useRef([]);
   }, []);
 
 
- 
-  const getVideo = (facingMode ) => {
-    console.log(facingMode)
+
+
+
+  const [selectedDeviceId, setSelectedDeviceId] = useState(null);
+
+
+
+  const getVideo = () => {
     navigator.mediaDevices
-    .getUserMedia({
-      video: { facingMode: { exact: facingMode }, width: 300 },
-    })
+      .getUserMedia({ video: { deviceId: selectedDeviceId } })
       .then((stream) => {
         let video = videoRef.current;
         video.srcObject = stream;
         video.play();
-  
-        // Set up MediaRecorder
-        const mediaRecorder = new MediaRecorder(stream, { mimeType: "video/webm" });
-        mediaRecorder.ondataavailable = (e) => {
-          if (e.data.size > 0) {
-            chunksRef.current.push(e.data);
-          }
-        };
-        mediaRecorder.onstop = () => {
-          const videoBlob = new Blob(chunksRef.current, { type: "video/webm" });
-          chunksRef.current = [];
-          const videoUrl = URL.createObjectURL(videoBlob);
-          const link = document.createElement("a");
-          link.href = videoUrl;
-          link.download = "myWebcamVideo.mp4";
-          link.click();
-          URL.revokeObjectURL(videoUrl);
-          const vid = document.getElementById("vid")
-          vid.innerHTML =`<video src='${videoUrl}' />`
-        };
-       
-        mediaRecorderRef.current = mediaRecorder;
       })
       .catch((err) => {
-        console.error("Error accessing media devices:", err.name, err.message);
+        console.error("Error accessing camera:", err);
       });
   };
+
+  const handleSwitchCamera = () => {
+    // Switch between front and back camera by selecting a different device ID.
+    setSelectedDeviceId((prevDeviceId) => {
+      // Enumerate devices and convert the result to an array
+      return new Promise((resolve, reject) => {
+        navigator.mediaDevices.enumerateDevices()
+          .then((devices) => {
+            const cameras = devices.filter((device) => device.kind === "videoinput");
+
+            // Find the index of the current device ID in the list of available cameras.
+            const currentIndex = cameras.findIndex(
+              (camera) => camera.deviceId === prevDeviceId
+            );
+
+            // Get the next camera in the list or loop back to the first one.
+            const nextIndex = (currentIndex + 1) % cameras.length;
+            resolve(cameras[nextIndex].deviceId);
+          })
+          .catch((error) => {
+            // Handle any errors that may occur during enumeration
+            console.error("Error enumerating devices:", error);
+            reject(error);
+          });
+      });
+    });
+  };
+
+
+
+
+
+
+
+
+ 
+  // const getVideo = (facingMode ) => {
+  //   console.log(facingMode)
+  //   navigator.mediaDevices
+  //   .getUserMedia({
+  //     video: { facingMode: { exact: facingMode } },
+  //   })
+  //     .then((stream) => {
+  //       let video = videoRef.current;
+  //       video.srcObject = stream;
+  //       video.play();
+  
+  //       // Set up MediaRecorder
+  //       const mediaRecorder = new MediaRecorder(stream, { mimeType: "video/webm" });
+  //       mediaRecorder.ondataavailable = (e) => {
+  //         if (e.data.size > 0) {
+  //           chunksRef.current.push(e.data);
+  //         }
+  //       };
+  //       mediaRecorder.onstop = () => {
+  //         const videoBlob = new Blob(chunksRef.current, { type: "video/webm" });
+  //         chunksRef.current = [];
+  //         const videoUrl = URL.createObjectURL(videoBlob);
+  //         const link = document.createElement("a");
+  //         link.href = videoUrl;
+  //         link.download = "myWebcamVideo.mp4";
+  //         link.click();
+  //         URL.revokeObjectURL(videoUrl);
+  //         const vid = document.getElementById("vid")
+  //         vid.innerHTML =`<video src='${videoUrl}' />`
+  //       };
+       
+  //       mediaRecorderRef.current = mediaRecorder;
+  //     })
+  //     .catch((err) => {
+  //       console.error("Error accessing media devices:", err.name, err.message);
+  //     });
+  // };
 
   useEffect(() => {
     getVideo();
@@ -156,7 +210,7 @@ const chunksRef = useRef([]);
       )}
 
       <div className="webcam-video">
-      <button onClick={toggleCamera}>Toggddle Camera</button>
+      <button onClick={handleSwitchCamera}>swww Camera</button>
 
         <button onClick={() => takePhoto()}>Take a photo</button>
         <button onClick={() => handleRecord()}>
