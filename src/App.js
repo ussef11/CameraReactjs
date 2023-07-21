@@ -156,7 +156,7 @@ const chunksRef = useRef([]);
       )}
 
       <div className="webcam-video">
-      <button onClick={toggleCamera}>Toggle Camera</button>
+      <button onClick={toggleCamera}>Toggddle Camera</button>
 
         <button onClick={() => takePhoto()}>Take a photo</button>
         <button onClick={() => handleRecord()}>
