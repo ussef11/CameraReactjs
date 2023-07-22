@@ -185,7 +185,10 @@ const handleaction = ()=>{
       <a id="a"></a>
 
       <div id="vid"></div> */}
-      <>          <Test/>  
+      <>  
+      {/*         <Test/>   */}
+
+      <Camtest/>
          <Videotest/> 
           </>
 
