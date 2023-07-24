@@ -87,7 +87,9 @@ export default function Videotest() {
       )}
       {recordedChunks.length > 0 && (
         <button onClick={handleDownload}>Download</button>
+    
       )}
+          <button onClick={handleClick}>Switch camera</button>
     </div>
   );
 }
