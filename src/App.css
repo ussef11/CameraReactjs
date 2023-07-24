@@ -15,3 +15,8 @@
   border-radius: 22px;
   padding: 5px;
 }
+
+.pos{
+  display: flex;
+    justify-content: center;
+}

@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import Test from "./test";
 import "./App.css";
-import Videotest from "./videotest"
-import Camtest from "./camtest"
+import Videotest from "./videotest";
+import Camtest from "./camtest";
 const App = () => {
   const [position, setPosition] = useState([]);
   const [displayCam, setDisplayCam] = useState(true);
@@ -11,15 +10,12 @@ const App = () => {
   const stripRef = useRef(null);
   const colorRef = useRef(null);
 
-  const [capt , setcapt] = useState("capture")
+  const [capt, setcapt] = useState("capture");
   const [recording, setRecording] = useState(false);
-const mediaRecorderRef = useRef(null);
-const chunksRef = useRef([]);
+  const mediaRecorderRef = useRef(null);
+  const chunksRef = useRef([]);
 
-const handleaction = ()=>{
-  
-
-}
+  const handleaction = () => {};
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -35,31 +31,31 @@ const handleaction = ()=>{
           console.log(pos);
         },
         function () {
-          alert("Please  Active your GPS and  Try againe") 
-          window.location.reload()  
-             }
+          alert("Please  Active your GPS and  Try againe");
+          window.location.reload();
+        }
       );
     } else {
       // Browser doesn't support Geolocation
-      alert("your Browset doesn't  support geolocation  Please change it")
+      alert("your Browset doesn't  support geolocation  Please change it");
     }
   }, []);
 
-
- 
-  const getVideo = (facingMode ) => {
-    console.log(facingMode)
+  const getVideo = (facingMode) => {
+    console.log(facingMode);
     navigator.mediaDevices
-    .getUserMedia({
-      video: { facingMode: { exact: facingMode }, width: 300 },
-    })
+      .getUserMedia({
+        video: { facingMode: { exact: facingMode }, width: 300 },
+      })
       .then((stream) => {
         let video = videoRef.current;
         video.srcObject = stream;
         video.play();
-  
+
         // Set up MediaRecorder
-        const mediaRecorder = new MediaRecorder(stream, { mimeType: "video/webm" });
+        const mediaRecorder = new MediaRecorder(stream, {
+          mimeType: "video/webm",
+        });
         mediaRecorder.ondataavailable = (e) => {
           if (e.data.size > 0) {
             chunksRef.current.push(e.data);
@@ -74,18 +70,16 @@ const handleaction = ()=>{
           link.download = "myWebcamVideo.mp4";
           link.click();
           URL.revokeObjectURL(videoUrl);
-          const vid = document.getElementById("vid")
-          vid.innerHTML =`<video src='${videoUrl}' />`
+          const vid = document.getElementById("vid");
+          vid.innerHTML = `<video src='${videoUrl}' />`;
         };
-       
+
         mediaRecorderRef.current = mediaRecorder;
       })
       .catch((err) => {
         console.error("Error accessing media devices:", err.name, err.message);
       });
   };
-
-
 
   useEffect(() => {
     getVideo();
@@ -116,7 +110,6 @@ const handleaction = ()=>{
     setRecording(!recording);
   };
 
-  
   const stop = () => {
     let video = videoRef.current;
     const stream = video.srcObject;
@@ -141,47 +134,47 @@ const handleaction = ()=>{
     link.click();
     link.innerHTML = `<img src='${data}' alt='thumbnail'/>`;
     strip.insertBefore(link, strip.firstChild);
-    console.log(strip.firstChild)
+    console.log(strip.firstChild);
   };
 
-  const [facingMode, setFacingMode] = useState("environment"); 
+  const [facingMode, setFacingMode] = useState("environment");
   const toggleCamera = () => {
     const newFacingMode = facingMode === "user" ? "environment" : "user";
     setFacingMode(newFacingMode);
     getVideo(newFacingMode);
     // console.log(facingMode)
-  
   };
-  
-const [video , setVideo] =  useState(false)
-  return (
-    <div>
 
+  const [video, setVideo] = useState(false);
+  return (
+    <div >
       <h3>My Position:</h3>
       {position && (
-        <div>
-          <p>Lat: {position.lat}</p>
+        <div className="pos">
+          <p style={{marginRight:"23px"}}>Lat: {position.lat}</p>
           <p>Lng: {position.lng}</p>
         </div>
       )}
 
-      <div> 
-        <button onClick={()=>{setVideo(false)}}><span class="material-symbols-outlined">
-photo_camera
-</span></button>
-        <button onClick={()=>{setVideo(true)}}><span class="material-symbols-outlined">
-videocam
-</span></button>
+      <div>
+        <button
+          onClick={() => {
+            setVideo(false);
+          }}  
+          style={{marginRight:"20px"}}
+        >
+          <span class="material-symbols-outlined">photo_camera</span>
+        </button>
+        <button
+          onClick={() => {
+            setVideo(true);
+          }}
+        >
+          <span class="material-symbols-outlined">videocam</span>
+        </button>
       </div>
 
-
-      <> 
-{   video === false ?   <Camtest/>
-    :  <Videotest/>    }
-   
-          </>
-
-
+      <>{video === false ? <Camtest /> : <Videotest />}</>
     </div>
   );
 };

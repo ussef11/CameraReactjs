@@ -74,6 +74,7 @@ export default function Videotest() {
 
   return (
     <div className="Container">
+        <div style={{textAlign:"center"}}>  <img   onClick={handleClick}  src={Switch}  /></div> 
       <Webcam
        
         style={{width:"100%"}}
@@ -84,17 +85,17 @@ export default function Videotest() {
       />
       {capturing ? (
        
-        <img  onClick={handleStopCaptureClick}  src={Stop}  />
+       <div style={{textAlign:"center"}}>     <img  onClick={handleStopCaptureClick}  src={Stop}  />  </div>
       ) : (
    
-        <img   onClick={handleStartCaptureClick }  src={Play}  />
+        <div style={{textAlign:"center"}}>      <img   onClick={handleStartCaptureClick }  src={Play}  /></div>
       )}
       {recordedChunks.length > 0 && (
         <button onClick={handleDownload}>Download</button>
     
       )}
 
-          <img   onClick={handleClick}  src={Switch}  />
+       
     </div>
   );
 }
