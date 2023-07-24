@@ -119,7 +119,7 @@ useEffect(() => {
           <video
             ref={videoRef}
             autoPlay
-            style={{ display: "none" }}
+            // style={{ display: "none" }}
           ></video>
           <div style={{ textAlign: "center" }}>
             <img onClick={handleClick} src={Switch} alt="Switch Camera" />
@@ -164,11 +164,11 @@ useEffect(() => {
           )}
         </div>
 
-        {
+        {torchSupported && (
           <button className="btntroch" onClick={handleToggleTorch}>
             {torchOn ?  <img src={Notroch} alt="Switch Camera" /> : <img src={Troch} alt="Switch Camera" />}
           </button>
-        }
+        )}
 
         {img && <button onClick={downloadImage}>Download</button>}
       </div>
