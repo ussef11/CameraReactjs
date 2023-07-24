@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import Webcam from "react-webcam";
-import Switch from "./media/switch.png"
-import Camera from "./media/camera.png"
+import Switch from "./media/switch.png";
+import Camera from "./media/camera.png";
 
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
@@ -40,20 +40,13 @@ export default function Camtest() {
     };
   }, [facingMode, torchOn]);
 
-
-
   const handleClick = useCallback(() => {
     setFacingMode((prevState) =>
       prevState === FACING_MODE_USER
         ? FACING_MODE_ENVIRONMENT
         : FACING_MODE_USER
     );
-
   }, []);
-
- 
-
-
 
   useEffect(() => {
     // Check if the torch feature is supported by the device
@@ -67,58 +60,65 @@ export default function Camtest() {
     setTorchOn((prevTorchOn) => !prevTorchOn);
   };
 
-
-  // console.log(facingMode + videoConstraints);
-
   return (
     <>
       <div className="webcam-container">
         <div className="webcam-img">
-        <video 
-        ref={videoRef}
-        autoPlay
-        style={{display:"none" }}
-      ></video>
-      <div style={{textAlign:"center"}}>  <img   onClick={handleClick}  src={Switch}  /></div> 
+          <video
+            ref={videoRef}
+            autoPlay
+            style={{ display: "none" }}
+          ></video>
+          <div style={{ textAlign: "center" }}>
+            <img onClick={handleClick} src={Switch} alt="Switch Camera" />
+          </div>
           {img === "" ? (
-      <>  
-        
-        <Webcam
-            className="webcam"
-            audio={false}
-            ref={webcamRef}
-            screenshotFormat="image/jpeg"
-            videoConstraints={getVideoConstraints()}
-            screenshotQuality={1}
-            scale={5}
-            style={{ width: "100%" }}
-          />
-            <div style={{textAlign:"center"}}>      <img  className="dd" onClick={capture}  src={Camera}  /> </div>  </> 
+            <>
+              <Webcam
+                className="webcam"
+                audio={false}
+                ref={webcamRef}
+                screenshotFormat="image/jpeg"
+                videoConstraints={getVideoConstraints()}
+                screenshotQuality={1}
+                scale={5}
+                style={{ width: "100%" }}
+              />
+              <div style={{ textAlign: "center" }}>
+                <img
+                  className="dd"
+                  onClick={capture}
+                  src={Camera}
+                  alt="Capture Image"
+                />
+              </div>
+            </>
           ) : (
-            <> 
-            <img
-              src={img}
-              alt="Scan"
-              style={{ width: "100%", height: "auto" }}
-            />
-      
-            
-      <div style={{textAlign:"center"}}> <img  className="dd" onClick={() => setImg("")} src={Camera}  /> </div>
-            
+            <>
+              <img
+                src={img}
+                alt="Scan"
+                style={{ width: "100%", height: "auto" }}
+              />
+              <div style={{ textAlign: "center" }}>
+                <img
+                  className="dd"
+                  onClick={() => setImg("")}
+                  src={Camera}
+                  alt="Capture Image"
+                />
+              </div>
             </>
           )}
         </div>
-        {torchSupported ? (
-        <button onClick={handleToggleTorch}>
-          {torchOn ? "Turn Off Torch" : "Turn On Torch"}
-        </button>
-      ) : (
-        <p>No torch found</p>
-      )}
+
+        {torchSupported && (
+          <button onClick={handleToggleTorch}>
+            {torchOn ? "Turn Off Torch" : "Turn On Torch"}
+          </button>
+        )}
 
         {img && <button onClick={downloadImage}>Download</button>}
-
-        
       </div>
     </>
   );
