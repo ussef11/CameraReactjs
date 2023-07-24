@@ -159,13 +159,11 @@ export default function Camtest() {
             </>
           )}
         </div>
-        {torchSupported ? (
+    
         <button onClick={handleToggleTorch}>
           {torchOn ? "Turn Off Torch" : "Turn On Torch"}
         </button>
-      ) : (
-        <p>No torch found</p>
-      )}
+   
 
         {img && <button onClick={downloadImage}>Download</button>}
 
