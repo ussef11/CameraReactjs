@@ -77,7 +77,7 @@ export default function Videotest() {
       </div>
       <Webcam
         style={{ width: "100%" }}
-        audio={true}
+        // audio={true}
         mirrored={false}
         ref={webcamRef}
         videoConstraints={videoConstraints}
