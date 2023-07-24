@@ -6,13 +6,24 @@ const FACING_MODE_ENVIRONMENT = "environment";
 
 export default function Camtest() {
   const webcamRef = useRef(null);
-  const [image, setImage] = useState("");
+  const [img, setImg] = useState("");
   const [facingMode, setFacingMode] = useState(FACING_MODE_USER);
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
-    setImage(imageSrc);
+    setImg(imageSrc);
   }, []);
+
+  const downloadImage = () => {
+    if (img) {
+      const a = document.createElement("a");
+      a.href = img;
+      a.download = "captured_image.jpg";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  };
 
   const videoConstraints = {
     facingMode: facingMode,
@@ -34,7 +45,7 @@ export default function Camtest() {
     <>
       <div className="webcam-container">
         <div className="webcam-img">
-          {image === "" ? (
+          {img === "" ? (
             <Webcam
               className="webcam"
               audio={false}
@@ -44,13 +55,17 @@ export default function Camtest() {
               screenshotQuality={1}
             />
           ) : (
+            <> 
             <img
-              src={image}
+              src={img}
               alt="Scan"
               style={{ width: "500px", height: "auto" }}
             />
+            <button onClick={() => setImg("")}>Retake</button></>
           )}
         </div>
+        <button onClick={capture}>Capture</button>
+        {img && <button onClick={downloadImage}>Download</button>}
         <button onClick={handleClick}>Switch camera</button>
       </div>
     </>

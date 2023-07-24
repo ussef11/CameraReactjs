@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Test from "./test";
 import "./App.css";
 import Videotest from "./videotest"
+import Camtest from "./camtest"
 const App = () => {
   const [position, setPosition] = useState([]);
   const [displayCam, setDisplayCam] = useState(true);
@@ -189,7 +190,7 @@ const handleaction = ()=>{
       {/*         <Test/>   */}
 
       <Camtest/>
-         <Videotest/> 
+      <Videotest/> 
           </>
 
 
