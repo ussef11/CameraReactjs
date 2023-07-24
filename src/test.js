@@ -1,18 +1,13 @@
-import React, { useEffect, useRef, useState  , useCallback} from "react";
-
-import Switch from "./media/switch.png"
-import Camera from "./media/camera.png"
-
-const FACING_MODE_USER = "user";
-const FACING_MODE_ENVIRONMENT = "environment";
+import React, { useEffect, useRef, useState } from "react";
 
 const TorchControl = () => {
   const [torchSupported, setTorchSupported] = useState(false);
   const [torchOn, setTorchOn] = useState(false);
+  const [cameraFacingMode, setCameraFacingMode] = useState("environment");
   const [capturedImage, setCapturedImage] = useState(null);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
-  const [facingMode, setFacingMode] = useState(FACING_MODE_USER);
+
   useEffect(() => {
     // Test browser support for mediaDevices
     const SUPPORTS_MEDIA_DEVICES = "mediaDevices" in navigator;
@@ -34,7 +29,7 @@ const TorchControl = () => {
           navigator.mediaDevices
             .getUserMedia({
               video: {
-                facingMode: facingMode,
+                facingMode: cameraFacingMode,
               },
             })
             .then((stream) => {
@@ -54,7 +49,7 @@ const TorchControl = () => {
     } else {
       console.log("MediaDevices not supported in this browser.");
     }
-  }, [facingMode]);
+  }, [cameraFacingMode]);
 
   const handleToggleTorch = () => {
     const videoTrack = videoRef.current.srcObject?.getVideoTracks()[0];
@@ -69,6 +64,12 @@ const TorchControl = () => {
         console.log(err);
       }
     }
+  };
+
+  const handleToggleCamera = () => {
+    setCameraFacingMode((prevMode) =>
+      prevMode === "user" ? "environment" : "user"
+    );
   };
 
   const handleCapture = () => {
@@ -92,18 +93,8 @@ const TorchControl = () => {
     }
   };
 
-  const handleClick = useCallback(() => {
-    setFacingMode((prevState) =>
-      prevState === FACING_MODE_USER
-        ? FACING_MODE_ENVIRONMENT
-        : FACING_MODE_USER
-    );
-
-  }, []);
-
   return (
     <div>
-         <div style={{textAlign:"center"}}>  <img   onClick={handleClick}  src={Switch}  /></div> 
       <video
         ref={videoRef}
         autoPlay
@@ -117,6 +108,7 @@ const TorchControl = () => {
         <p>No torch found</p>
       )}
 
+      <button onClick={handleToggleCamera}>Switch Camera</button>
       <button onClick={handleCapture}>Capture</button>
       {capturedImage && (
         <>
