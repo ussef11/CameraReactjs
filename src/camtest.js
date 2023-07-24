@@ -37,6 +37,7 @@ export default function Camtest() {
         ? FACING_MODE_ENVIRONMENT
         : FACING_MODE_USER
     );
+
   }, []);
 
   console.log(facingMode + videoConstraints);
