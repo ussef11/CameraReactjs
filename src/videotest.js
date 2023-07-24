@@ -1,11 +1,16 @@
 import React, { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
 
+
+const FACING_MODE_USER = "user";
+const FACING_MODE_ENVIRONMENT = "environment";
+
 export default function Videotest() {
   const webcamRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const [capturing, setCapturing] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
+  const [facingMode, setFacingMode] = useState(FACING_MODE_USER);
 
   const handleDataAvailable = useCallback(
     ({ data }) => {
@@ -53,8 +58,17 @@ export default function Videotest() {
   const videoConstraints = {
     width: 420,
     height: 420,
-    facingMode: "user",
+    facingMode: facingMode,
   };
+
+  const handleClick = useCallback(() => {
+    setFacingMode((prevState) =>
+      prevState === FACING_MODE_USER
+        ? FACING_MODE_ENVIRONMENT
+        : FACING_MODE_USER
+    );
+
+  }, []);
 
   return (
     <div className="Container">
