@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
 import Videotest from "./videotest";
 import Camtest from "./camtest";
+import Test from "./test";
 const App = () => {
   const [position, setPosition] = useState([]);
   useEffect(() => {
@@ -59,7 +60,7 @@ const App = () => {
         </button>
       </div>
 
-      <>{video === false ? <Camtest /> : <Videotest />}</>
+      <>{video === false ? <Test /> : <Videotest />}</>
     </div>
   );
 };
