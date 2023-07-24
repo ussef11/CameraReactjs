@@ -35,7 +35,8 @@ const handleaction = ()=>{
           console.log(pos);
         },
         function () {
-          alert("Error Please Try againe")   
+          alert("Please  Active your GPS and  Try againe") 
+          window.location.reload()  
              }
       );
     } else {
