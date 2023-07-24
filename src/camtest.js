@@ -72,7 +72,7 @@ useEffect(() => {
           navigator.mediaDevices
             .getUserMedia({
               video: {
-                facingMode: "user",
+                facingMode: "environment",
               },
             })
             .then((stream) => {
@@ -109,7 +109,7 @@ useEffect(() => {
     }
   };
 
-
+  
   return (
     <>
       <div className="webcam-container">
