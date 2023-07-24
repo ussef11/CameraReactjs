@@ -8,6 +8,7 @@ const FACING_MODE_ENVIRONMENT = "environment";
 
 export default function Camtest() {
   const webcamRef = useRef(null);
+  const videoRef = useRef(null);
   const [img, setImg] = useState("");
   const [facingMode, setFacingMode] = useState(FACING_MODE_USER);
   const [torchSupported, setTorchSupported] = useState(false);
@@ -94,7 +95,7 @@ export default function Camtest() {
   }, []);
 
   const handleToggleTorch = () => {
-    const videoTrack = webcamRef.current.srcObject?.getVideoTracks()[0];
+    const videoTrack = videoRef.current.srcObject?.getVideoTracks()[0];
 
     if (videoTrack && torchSupported) {
       try {
@@ -103,7 +104,7 @@ export default function Camtest() {
         });
         setTorchOn(!torchOn);
       } catch (err) {
-        console.log("dddddd" ,err);
+        console.log(err);
       }
     }
   };
@@ -118,6 +119,11 @@ export default function Camtest() {
       <div style={{textAlign:"center"}}>  <img   onClick={handleClick}  src={Switch}  /></div> 
           {img === "" ? (
       <>  
+         <video 
+        ref={videoRef}
+        autoPlay
+        style={{display:"none" }}
+      ></video>
       
           <Webcam
               className="webcam"
