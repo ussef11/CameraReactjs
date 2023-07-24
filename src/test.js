@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const Test = () => {
+const TorchControl = () => {
   const [torchSupported, setTorchSupported] = useState(false);
   const [torchOn, setTorchOn] = useState(false);
-  const videoRef = React.useRef(null);
+  const [capturedImage, setCapturedImage] = useState(null);
+  const videoRef = useRef(null);
+  const canvasRef = useRef(null);
 
   useEffect(() => {
     // Test browser support for mediaDevices
@@ -63,6 +65,27 @@ const Test = () => {
     }
   };
 
+  const handleCapture = () => {
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    setCapturedImage(canvas.toDataURL("image/jpeg"));
+  };
+
+  const handleDownload = () => {
+    if (capturedImage) {
+      const link = document.createElement("a");
+      link.href = capturedImage;
+      link.download = "captured_image.jpg";
+      link.click();
+    }
+  };
+
   return (
     <div>
       <video
@@ -77,8 +100,22 @@ const Test = () => {
       ) : (
         <p>No torch found</p>
       )}
+
+      <button onClick={handleCapture}>Capture</button>
+      {capturedImage && (
+        <>
+          <img
+            src={capturedImage}
+            alt="Captured"
+            style={{ width: "100%", height: "auto" }}
+          />
+          <button onClick={handleDownload}>Download</button>
+        </>
+      )}
+
+      <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
     </div>
   );
 };
 
-export default Test;
+export default TorchControl;

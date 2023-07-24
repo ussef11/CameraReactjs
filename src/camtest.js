@@ -70,7 +70,7 @@ export default function Camtest() {
           navigator.mediaDevices
             .getUserMedia({
               video: {
-                facingMode: "environment",
+                facingMode: facingMode,
               },
             })
             .then((stream) => {
@@ -79,6 +79,7 @@ export default function Camtest() {
               // Check if torch is supported
               const supportedTorch = !!stream.getVideoTracks()[0].applyConstraints;
               setTorchSupported(supportedTorch);
+              console.log(supportedTorch)
             })
             .catch((error) => {
               console.log(error);
@@ -102,7 +103,7 @@ export default function Camtest() {
         });
         setTorchOn(!torchOn);
       } catch (err) {
-        console.log(err);
+        console.log("dddddd" ,err);
       }
     }
   };
@@ -116,7 +117,9 @@ export default function Camtest() {
         <div className="webcam-img">
       <div style={{textAlign:"center"}}>  <img   onClick={handleClick}  src={Switch}  /></div> 
           {img === "" ? (
-      <>      <Webcam
+      <>  
+      
+          <Webcam
               className="webcam"
               audio={false}
               ref={webcamRef}
