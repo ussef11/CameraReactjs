@@ -36,7 +36,7 @@ export default function Camtest() {
     audio: false,
 
     autoFocus: 'continuous',
-    flashMode: 'off',
+    flashMode: 'on',
     whiteBalance: 'continuous',
     zoom: 0,
     focusDepth: 0,
