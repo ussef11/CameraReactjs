@@ -74,7 +74,7 @@ useEffect(() => {
           navigator.mediaDevices
             .getUserMedia({
               video: {
-                facingMode: "user",
+                facingMode: "environment",
               },
             })
             .then((stream) => {
