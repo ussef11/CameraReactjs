@@ -10,7 +10,7 @@ export default function Camtest() {
   const webcamRef = useRef(null);
   const videoRef = useRef(null);
   const [img, setImg] = useState("");
-  const [facingMode, setFacingMode] = useState(FACING_MODE_USER);
+  const [facingMode, setFacingMode] = useState(FACING_MODE_ENVIRONMENT);
   const [torchSupported, setTorchSupported] = useState(false);
   const [torchOn, setTorchOn] = useState(false);
 
