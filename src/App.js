@@ -60,7 +60,7 @@ const App = () => {
         </button>
       </div>
 
-      <>{video === false ? <Test /> : <Videotest />}</>
+      <>{video === false ? <Camtest /> : <Videotest />}</>
     </div>
   );
 };

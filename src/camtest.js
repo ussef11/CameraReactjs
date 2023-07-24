@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import Webcam from "react-webcam";
 import Switch from "./media/switch.png"
 import Camera from "./media/camera.png"
@@ -10,6 +10,8 @@ export default function Camtest() {
   const webcamRef = useRef(null);
   const [img, setImg] = useState("");
   const [facingMode, setFacingMode] = useState(FACING_MODE_USER);
+  const [torchSupported, setTorchSupported] = useState(false);
+  const [torchOn, setTorchOn] = useState(false);
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -47,6 +49,65 @@ export default function Camtest() {
 
   }, []);
 
+  useEffect(() => {
+    
+    const SUPPORTS_MEDIA_DEVICES = "mediaDevices" in navigator;
+
+    if (SUPPORTS_MEDIA_DEVICES) {
+     
+      navigator.mediaDevices
+        .enumerateDevices()
+        .then((devices) => {
+          const cameras = devices.filter(
+            (device) => device.kind === "videoinput"
+          );
+
+          if (cameras.length === 0) {
+            console.log("No camera found on this device.");
+          }
+
+          // Create stream and get video track
+          navigator.mediaDevices
+            .getUserMedia({
+              video: {
+                facingMode: "environment",
+              },
+            })
+            .then((stream) => {
+              webcamRef.current.srcObject = stream;
+
+              // Check if torch is supported
+              const supportedTorch = !!stream.getVideoTracks()[0].applyConstraints;
+              setTorchSupported(supportedTorch);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      console.log("MediaDevices not supported in this browser.");
+    }
+  }, []);
+
+  const handleToggleTorch = () => {
+    const videoTrack = webcamRef.current.srcObject?.getVideoTracks()[0];
+
+    if (videoTrack && torchSupported) {
+      try {
+        videoTrack.applyConstraints({
+          advanced: [{ torch: !torchOn }],
+        });
+        setTorchOn(!torchOn);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+
   console.log(facingMode + videoConstraints);
 
   return (
@@ -82,7 +143,13 @@ export default function Camtest() {
             </>
           )}
         </div>
-       
+        {torchSupported ? (
+        <button onClick={handleToggleTorch}>
+          {torchOn ? "Turn Off Torch" : "Turn On Torch"}
+        </button>
+      ) : (
+        <p>No torch found</p>
+      )}
 
         {img && <button onClick={downloadImage}>Download</button>}
 
