@@ -164,11 +164,11 @@ useEffect(() => {
           )}
         </div>
 
-        {torchSupported && (
+        {
           <button className="btntroch" onClick={handleToggleTorch}>
             {torchOn ?  <img src={Notroch} alt="Switch Camera" /> : <img src={Troch} alt="Switch Camera" />}
           </button>
-        )}
+        }
 
         {img && <button onClick={downloadImage}>Download</button>}
       </div>
