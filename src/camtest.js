@@ -35,12 +35,9 @@ export default function Camtest() {
     height: 720,
     audio: false,
 
-    autoFocus: 'continuous',
-    flashMode: 'on',
-    whiteBalance: 'continuous',
-    zoom: 0,
-    focusDepth: 0,
-    aspectRatio: ratio,
+    aspectRatio: 1.777777778,
+    frameRate: { max: 30 },
+    flashMode: "on"
   };
 
   const handleClick = useCallback(() => {
