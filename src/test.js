@@ -34,7 +34,7 @@ const TorchControl = () => {
           navigator.mediaDevices
             .getUserMedia({
               video: {
-                facingMode: "environment",
+                facingMode: facingMode,
               },
             })
             .then((stream) => {
@@ -54,7 +54,7 @@ const TorchControl = () => {
     } else {
       console.log("MediaDevices not supported in this browser.");
     }
-  }, []);
+  }, [facingMode]);
 
   const handleToggleTorch = () => {
     const videoTrack = videoRef.current.srcObject?.getVideoTracks()[0];
