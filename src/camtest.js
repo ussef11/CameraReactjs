@@ -5,12 +5,13 @@ import Camera from "./media/camera.png";
 
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
-
+const FLASH_MODE_ON = "on";
+const FLASH_MODE_OFF = "off";
 export default function Camtest() {
   const webcamRef = useRef(null);
   const [img, setImg] = useState("");
   const [facingMode, setFacingMode] = useState(FACING_MODE_USER);
-
+  const [flashMode, setFlashMode] = useState(FLASH_MODE_OFF);
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImg(imageSrc);
@@ -27,18 +28,22 @@ export default function Camtest() {
     }
   };
 
-  const [ratio, setRatio] = useState(0.75)
+ 
 
   const videoConstraints = {
     facingMode: facingMode,
-
-    height: 720,
     audio: false,
-
     aspectRatio: 1.777777778,
     frameRate: { max: 30 },
-    flashMode: "on"
+    // Add flashMode option
+    flashMode: flashMode
   };
+
+  const handleFlash = useCallback(() => {
+    setFlashMode((prevState) =>
+      prevState === FLASH_MODE_ON ? FLASH_MODE_OFF : FLASH_MODE_ON
+    );
+  }, []);
 
   const handleClick = useCallback(() => {
     setFacingMode((prevState) =>
@@ -69,7 +74,7 @@ export default function Camtest() {
                 screensshotFormat="image/jpeg"
                 videoConstraints={videoConstraints}
                 screenshotQuality={1}
-                scale={5}
+               
                 style={{ width: "100%" }}
               />
               <div style={{ textAlign: "center" }}>
@@ -91,7 +96,9 @@ export default function Camtest() {
             </>
           )}
         </div>
-
+        <button onClick={handleFlash}>
+          {flashMode === FLASH_MODE_ON ? "Turn Flash Off" : "Turn Flash On"}
+        </button>
         {img && <button onClick={downloadImage}>Download</button>}
       </div>
     </>
