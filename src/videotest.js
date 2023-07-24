@@ -1,8 +1,8 @@
 import React, { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
-import Play from "./media/video.png"
-import Stop from "./media/stop.png"
-import Switch from "./media/switch.png"
+import Play from "./media/video.png";
+import Stop from "./media/stop.png";
+import Switch from "./media/switch.png";
 
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
@@ -58,8 +58,6 @@ export default function Videotest() {
   }, [recordedChunks]);
 
   const videoConstraints = {
-
-  
     facingMode: facingMode,
   };
 
@@ -69,33 +67,35 @@ export default function Videotest() {
         ? FACING_MODE_ENVIRONMENT
         : FACING_MODE_USER
     );
-
   }, []);
 
   return (
     <div className="Container">
-        <div style={{textAlign:"center"}}>  <img   onClick={handleClick}  src={Switch}  /></div> 
+      <div style={{ textAlign: "center" }}>
+        {" "}
+        <img onClick={handleClick} src={Switch} />
+      </div>
       <Webcam
-       
-        style={{width:"100%"}}
+        style={{ width: "100%" }}
         audio={true}
         mirrored={false}
         ref={webcamRef}
         videoConstraints={videoConstraints}
       />
       {capturing ? (
-       
-       <div style={{textAlign:"center"}}>     <img  onClick={handleStopCaptureClick}  src={Stop}  />  </div>
+        <div style={{ textAlign: "center" }}>
+          {" "}
+          <img onClick={handleStopCaptureClick} src={Stop} />{" "}
+        </div>
       ) : (
-   
-        <div style={{textAlign:"center"}}>      <img   onClick={handleStartCaptureClick }  src={Play}  /></div>
+        <div style={{ textAlign: "center" }}>
+          {" "}
+          <img onClick={handleStartCaptureClick} src={Play} />
+        </div>
       )}
       {recordedChunks.length > 0 && (
         <button onClick={handleDownload}>Download</button>
-    
       )}
-
-       
     </div>
   );
 }
