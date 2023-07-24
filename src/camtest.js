@@ -166,7 +166,7 @@ useEffect(() => {
 
         {torchSupported && (
           <button className="btntroch" onClick={handleToggleTorch}>
-            {torchOn ?  <img src={Notroch} alt="Switch Camera" /> : <img src={Troch} alt="Switch Camera" />}
+            {torchOn ?  <img src={Troch} alt="Switch Camera" /> : <img src={Notroch} alt="Switch Camera" />}
           </button>
         )}
 
