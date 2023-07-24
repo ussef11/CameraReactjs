@@ -94,7 +94,7 @@ export default function Videotest() {
         </div>
       )}
       {recordedChunks.length > 0 && (
-        <button onClick={handleDownload}>Download</button>
+        <button onClick={handleDownload}>Download Video</button>
       )}
     </div>
   );
