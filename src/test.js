@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const TorchControl = () => {
+const Test = () => {
   const [torchSupported, setTorchSupported] = useState(false);
   const [torchOn, setTorchOn] = useState(false);
   const [capturedImage, setCapturedImage] = useState(null);
@@ -118,4 +118,4 @@ const TorchControl = () => {
   );
 };
 
-export default TorchControl;
+export default Test;
