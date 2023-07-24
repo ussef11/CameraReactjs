@@ -1,14 +1,30 @@
 import React, { useState, useRef, useCallback } from "react";
 
-export default function Test() {
+export default function WebcamCapture() {
   const webcamRef = useRef(null);
+  const canvasRef = useRef(null);
   const [img, setImg] = useState("");
   const [facingMode, setFacingMode] = useState("user");
   const [flashOn, setFlashOn] = useState(false);
 
   const capture = useCallback(() => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    setImg(imageSrc);
+    const video = webcamRef.current;
+    const canvas = canvasRef.current;
+
+    if (video && canvas) {
+      const context = canvas.getContext("2d");
+      context.drawImage(
+        video,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+
+      // Get the image data from the canvas and set it in state
+      const imageSrc = canvas.toDataURL("image/jpeg");
+      setImg(imageSrc);
+    }
   }, []);
 
   const downloadImage = () => {
@@ -69,6 +85,8 @@ export default function Test() {
         </button>
         <button onClick={handleClick}>Switch camera</button>
       </div>
+      {/* Hidden canvas to capture the image */}
+      <canvas ref={canvasRef} style={{ display: "none" }} />
     </>
   );
 }
