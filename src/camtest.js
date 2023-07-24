@@ -52,6 +52,54 @@ export default function Camtest() {
 
  
 
+
+ 
+  
+
+
+  useEffect(() => {
+    // Test browser support for mediaDevices
+    const SUPPORTS_MEDIA_DEVICES = "mediaDevices" in navigator;
+
+    if (SUPPORTS_MEDIA_DEVICES) {
+      // Get the environment camera (usually the second one)
+      navigator.mediaDevices
+        .enumerateDevices()
+        .then((devices) => {
+          const cameras = devices.filter(
+            (device) => device.kind === "videoinput"
+          );
+
+          if (cameras.length === 0) {
+            console.log("No camera found on this device.");
+          }
+
+          // Create stream and get video track
+          navigator.mediaDevices
+            .getUserMedia({
+              video: {
+                facingMode: "environment",
+              },
+            })
+            .then((stream) => {
+              videoRef.current.srcObject = stream;
+
+              // Check if torch is supported
+              const supportedTorch = !!stream.getVideoTracks()[0].applyConstraints;
+              setTorchSupported(supportedTorch);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      console.log("MediaDevices not supported in this browser.");
+    }
+  }, []);
+
   const handleToggleTorch = () => {
     const videoTrack = videoRef.current.srcObject?.getVideoTracks()[0];
 
@@ -77,7 +125,7 @@ export default function Camtest() {
         <video 
         ref={videoRef}
         autoPlay
-        // style={{display:"none" }}
+        style={{display:"none" }}
       ></video>
       <div style={{textAlign:"center"}}>  <img   onClick={handleClick}  src={Switch}  /></div> 
           {img === "" ? (
