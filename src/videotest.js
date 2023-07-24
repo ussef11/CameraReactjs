@@ -1,6 +1,8 @@
 import React, { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
-
+import Play from "./media/video.png"
+import Stop from "./media/stop.png"
+import Switch from "./media/switch.png"
 
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
@@ -81,15 +83,18 @@ export default function Videotest() {
         videoConstraints={videoConstraints}
       />
       {capturing ? (
-        <button onClick={handleStopCaptureClick}>Stop video</button>
+       
+        <img  onClick={handleStopCaptureClick}  src={Stop}  />
       ) : (
-        <button onClick={handleStartCaptureClick}>Start video</button>
+   
+        <img   onClick={handleStartCaptureClick }  src={Play}  />
       )}
       {recordedChunks.length > 0 && (
         <button onClick={handleDownload}>Download</button>
     
       )}
-          <button onClick={handleClick}>Switch camera</button>
+
+          <img   onClick={handleClick}  src={Switch}  />
     </div>
   );
 }

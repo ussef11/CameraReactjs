@@ -166,37 +166,15 @@ const [video , setVideo] =  useState(false)
       )}
 
       <div> 
-        <button onClick={()=>{setVideo(false)}}>Photo</button>
-        <button onClick={()=>{setVideo(true)}}>Video</button>
+        <button onClick={()=>{setVideo(false)}}><span class="material-symbols-outlined">
+photo_camera
+</span></button>
+        <button onClick={()=>{setVideo(true)}}><span class="material-symbols-outlined">
+videocam
+</span></button>
       </div>
 
-      {/* <div className="webcam-video">
-      <button onClick={toggleCamera}>Toggle Camera</button>
 
-        <button onClick={() => takePhoto()}>Take a photo</button>
-        <button onClick={() => handleRecord()}>
-        {recording ? "Stop Recording" : "Start Recording"}
-      </button>
-        {displayCam && (
-          <>
-            <video
-              onCanPlay={() => paintToCanvas()}
-              ref={videoRef}
-              className="player"
-            />
-            <canvas style={{ display: "none" }} ref={photoRef} className="photo" />
-          </>
-        )}
-        <div className="photo-booth">
-          <div ref={stripRef} className="strip" />
-        </div>
-        <button onClick={() => stop()}>stop</button>
-      </div>
-      <a id="a"></a>
-
-      <div id="vid"></div> */}
-   
-      {/*         <Test/>   */}
       <> 
 {   video === false ?   <Camtest/>
     :  <Videotest/>    }

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useCallback } from "react";
 import Webcam from "react-webcam";
+import Switch from "./media/switch.png"
 
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";

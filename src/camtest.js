@@ -1,5 +1,7 @@
 import React, { useState, useRef, useCallback } from "react";
 import Webcam from "react-webcam";
+import Switch from "./media/switch.png"
+import Camera from "./media/camera.png"
 
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
@@ -49,7 +51,7 @@ export default function Camtest() {
       <div className="webcam-container">
         <div className="webcam-img">
           {img === "" ? (
-            <Webcam
+      <>      <Webcam
               className="webcam"
               audio={false}
               ref={webcamRef}
@@ -61,6 +63,7 @@ export default function Camtest() {
               style={{width:"100%"}}
              
             />
+            <img  onClick={capture}  src={Camera}  /></> 
           ) : (
             <> 
             <img
@@ -68,12 +71,18 @@ export default function Camtest() {
               alt="Scan"
               style={{ width: "500px", height: "auto" }}
             />
-            <button onClick={() => setImg("")}>Retake</button></>
+      
+            
+            <img  onClick={() => setImg("")} src={Camera}  />
+            
+            </>
           )}
         </div>
-        <button onClick={capture}>Capture</button>
+       
+
         {img && <button onClick={downloadImage}>Download</button>}
-        <button onClick={handleClick}>Switch camera</button>
+
+        <img   onClick={handleClick}  src={Switch}  />
       </div>
     </>
   );
