@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from "react";
 import Webcam from "react-webcam";
-import Switch from "./media/switch.png"
-import Camera from "./media/camera.png"
+import Switch from "./media/switch.png";
+import Camera from "./media/camera.png";
 
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
@@ -27,12 +27,20 @@ export default function Camtest() {
     }
   };
 
+  const [ratio, setRatio] = useState(0.75)
+
   const videoConstraints = {
     facingMode: facingMode,
 
     height: 720,
-    audio:true,
+    audio: false,
 
+    autoFocus: 'continuous',
+    flashMode: 'off',
+    whiteBalance: 'continuous',
+    zoom: 0,
+    focusDepth: 0,
+    aspectRatio: ratio,
   };
 
   const handleClick = useCallback(() => {
@@ -41,49 +49,53 @@ export default function Camtest() {
         ? FACING_MODE_ENVIRONMENT
         : FACING_MODE_USER
     );
-
   }, []);
 
   console.log(facingMode + videoConstraints);
+
 
   return (
     <>
       <div className="webcam-container">
         <div className="webcam-img">
-      <div style={{textAlign:"center"}}>  <img   onClick={handleClick}  src={Switch}  /></div> 
+          <div style={{ textAlign: "center" }}>
+            {" "}
+            <img onClick={handleClick} src={Switch} />
+          </div>
           {img === "" ? (
-      <>      <Webcam
-              className="webcam"
-              audio={false}
-              ref={webcamRef}
-              screensshotFormat="image/jpeg"
-              videoConstraints={videoConstraints}
-              screenshotQuality={1}
-              scale={5}
-
-              style={{width:"100%"}}
-             
-            />
-            <div style={{textAlign:"center"}}>      <img  className="dd" onClick={capture}  src={Camera}  /> </div>  </> 
+            <>
+              {" "}
+              <Webcam
+                className="webcam"
+                audio={false}
+                ref={webcamRef}
+                screensshotFormat="image/jpeg"
+                videoConstraints={videoConstraints}
+                screenshotQuality={1}
+                scale={5}
+                style={{ width: "100%" }}
+              />
+              <div style={{ textAlign: "center" }}>
+                {" "}
+                <img className="dd" onClick={capture} src={Camera} />{" "}
+              </div>{" "}
+            </>
           ) : (
-            <> 
-            <img
-              src={img}
-              alt="Scan"
-              style={{ width: "100%", height: "auto" }}
-            />
-      
-            
-      <div style={{textAlign:"center"}}><img  className="dd" onClick={() => setImg("")} src={Camera}  /> </div>
-            
+            <>
+              <img
+                src={img}
+                alt="Scan"
+                style={{ width: "100%", height: "auto" }}
+              />
+
+              <div style={{ textAlign: "center" }}>
+                <img className="dd" onClick={() => setImg("")} src={Camera} />{" "}
+              </div>
             </>
           )}
         </div>
-       
 
         {img && <button onClick={downloadImage}>Download</button>}
-
-        
       </div>
     </>
   );
