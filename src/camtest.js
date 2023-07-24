@@ -27,8 +27,10 @@ export default function Camtest() {
 
   const videoConstraints = {
     facingMode: facingMode,
-    width: 270,
-    height: 480
+
+    height: 720,
+    audio:true,
+
   };
 
   const handleClick = useCallback(() => {
@@ -54,6 +56,10 @@ export default function Camtest() {
               screenshotFormat="image/jpeg"
               videoConstraints={videoConstraints}
               screenshotQuality={1}
+              scale={5}
+
+              style={{width:"100%"}}
+             
             />
           ) : (
             <> 

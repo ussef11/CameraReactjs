@@ -56,8 +56,8 @@ export default function Videotest() {
   }, [recordedChunks]);
 
   const videoConstraints = {
-    width: 420,
-    height: 420,
+
+  
     facingMode: facingMode,
   };
 
@@ -73,10 +73,10 @@ export default function Videotest() {
   return (
     <div className="Container">
       <Webcam
-        height={400}
-        width={400}
-        audio={false}
-        mirrored={true}
+       
+        style={{width:"100%"}}
+        audio={true}
+        mirrored={false}
         ref={webcamRef}
         videoConstraints={videoConstraints}
       />
