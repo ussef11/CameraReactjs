@@ -84,7 +84,7 @@ const handleaction = ()=>{
       });
   };
 
-  
+
 
   useEffect(() => {
     getVideo();
@@ -192,7 +192,7 @@ const handleaction = ()=>{
       {/*         <Test/>   */}
 
       <Camtest/>
-      <Videotest/> 
+      {/* <Videotest/>  */}
           </>
 
 
