@@ -1,10 +1,4 @@
-import React, { useEffect, useRef, useState  , useCallback} from "react";
-
-import Switch from "./media/switch.png"
-import Camera from "./media/camera.png"
-
-const FACING_MODE_USER = "user";
-const FACING_MODE_ENVIRONMENT = "environment";
+import React, { useEffect, useRef, useState } from "react";
 
 const TorchControl = () => {
   const [torchSupported, setTorchSupported] = useState(false);
@@ -12,7 +6,7 @@ const TorchControl = () => {
   const [capturedImage, setCapturedImage] = useState(null);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
-  const [facingMode, setFacingMode] = useState(FACING_MODE_USER);
+
   useEffect(() => {
     // Test browser support for mediaDevices
     const SUPPORTS_MEDIA_DEVICES = "mediaDevices" in navigator;
@@ -34,7 +28,7 @@ const TorchControl = () => {
           navigator.mediaDevices
             .getUserMedia({
               video: {
-                facingMode: "user",
+                facingMode: "environment",
               },
             })
             .then((stream) => {
@@ -92,18 +86,8 @@ const TorchControl = () => {
     }
   };
 
-  const handleClick = useCallback(() => {
-    setFacingMode((prevState) =>
-      prevState === FACING_MODE_USER
-        ? FACING_MODE_ENVIRONMENT
-        : FACING_MODE_USER
-    );
-
-  }, []);
-
   return (
     <div>
-         <div style={{textAlign:"center"}}>  <img   onClick={handleClick}  src={Switch}  /></div> 
       <video
         ref={videoRef}
         autoPlay

@@ -33,7 +33,7 @@ export default function Camtest() {
     facingMode: facingMode,
 
     height: 720,
-    audio:false,
+    audio:true,
 
     frameRate: 30,
     advanced: [{ torch: true }]
