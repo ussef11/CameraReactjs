@@ -2,6 +2,8 @@ import React, { useState, useRef, useCallback, useEffect } from "react";
 import Webcam from "react-webcam";
 import Switch from "./media/switch.png";
 import Camera from "./media/camera.png";
+import Notroch from "./media/notroch.png";
+import Troch from "./media/troch.png";
 
 const FACING_MODE_USER = "user";
 const FACING_MODE_ENVIRONMENT = "environment";
@@ -163,8 +165,8 @@ useEffect(() => {
         </div>
 
         {torchSupported && (
-          <button onClick={handleToggleTorch}>
-            {torchOn ? "Turn Off Torch" : "Turn On Torch"}
+          <button className="btntroch" onClick={handleToggleTorch}>
+            {torchOn ?  <img src={Notroch} alt="Switch Camera" /> : <img src={Troch} alt="Switch Camera" />}
           </button>
         )}
 

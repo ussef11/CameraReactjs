@@ -19,7 +19,27 @@
   background-color: rebeccapurple;
 }
 
+
 .pos{
   display: flex;
     justify-content: center;
+}
+
+button{
+  background: none;
+    border: transparent;
+}
+
+img:hover{
+  background-color: rebeccapurple;
+  border-radius: 20px;
+}
+
+span:hover{
+  background-color: rebeccapurple;
+  border-radius: 20px;
+}
+.btntroch img{
+  width: 43px;
+
 }
