@@ -125,7 +125,7 @@ export default function Camtest() {
         <video 
         ref={videoRef}
         autoPlay
-        style={{display:"none" }}
+        // style={{display:"none" }}
       ></video>
       <div style={{textAlign:"center"}}>  <img   onClick={handleClick}  src={Switch}  /></div> 
           {img === "" ? (
