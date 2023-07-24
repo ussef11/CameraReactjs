@@ -67,9 +67,9 @@ export default function Videotest() {
         videoConstraints={videoConstraints}
       />
       {capturing ? (
-        <button onClick={handleStopCaptureClick}>Stop Capture</button>
+        <button onClick={handleStopCaptureClick}>Stop video</button>
       ) : (
-        <button onClick={handleStartCaptureClick}>Start Capture</button>
+        <button onClick={handleStartCaptureClick}>Start video</button>
       )}
       {recordedChunks.length > 0 && (
         <button onClick={handleDownload}>Download</button>

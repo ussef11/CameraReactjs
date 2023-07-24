@@ -152,9 +152,10 @@ const handleaction = ()=>{
   
   };
   
-
+const [video , setVideo] =  useState(false)
   return (
     <div>
+
       <h3>My Position:</h3>
       {position && (
         <div>
@@ -162,6 +163,11 @@ const handleaction = ()=>{
           <p>Lng: {position.lng}</p>
         </div>
       )}
+
+      <div> 
+        <button onClick={()=>{setVideo(false)}}>Photo</button>
+        <button onClick={()=>{setVideo(true)}}>Video</button>
+      </div>
 
       {/* <div className="webcam-video">
       <button onClick={toggleCamera}>Toggle Camera</button>
@@ -188,11 +194,12 @@ const handleaction = ()=>{
       <a id="a"></a>
 
       <div id="vid"></div> */}
-      <>  
+   
       {/*         <Test/>   */}
-
-      <Camtest/>
-      {/* <Videotest/>  */}
+      <> 
+{   video === false ?   <Camtest/>
+    :  <Videotest/>    }
+   
           </>
 
 
