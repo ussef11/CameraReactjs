@@ -50,49 +50,7 @@ export default function Camtest() {
 
   }, []);
 
-  useEffect(() => {
-    
-    const SUPPORTS_MEDIA_DEVICES = "mediaDevices" in navigator;
-
-    if (SUPPORTS_MEDIA_DEVICES) {
-     
-      navigator.mediaDevices
-        .enumerateDevices()
-        .then((devices) => {
-          const cameras = devices.filter(
-            (device) => device.kind === "videoinput"
-          );
-
-          if (cameras.length === 0) {
-            console.log("No camera found on this device.");
-          }
-
-          // Create stream and get video track
-          navigator.mediaDevices
-            .getUserMedia({
-              video: {
-                facingMode: facingMode,
-              },
-            })
-            .then((stream) => {
-              webcamRef.current.srcObject = stream;
-
-              // Check if torch is supported
-              const supportedTorch = !!stream.getVideoTracks()[0].applyConstraints;
-              setTorchSupported(supportedTorch);
-              console.log(supportedTorch)
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      console.log("MediaDevices not supported in this browser.");
-    }
-  }, []);
+ 
 
   const handleToggleTorch = () => {
     const videoTrack = videoRef.current.srcObject?.getVideoTracks()[0];
@@ -116,14 +74,15 @@ export default function Camtest() {
     <>
       <div className="webcam-container">
         <div className="webcam-img">
+        <video 
+        ref={videoRef}
+        autoPlay
+        // style={{display:"none" }}
+      ></video>
       <div style={{textAlign:"center"}}>  <img   onClick={handleClick}  src={Switch}  /></div> 
           {img === "" ? (
       <>  
-         <video 
-        ref={videoRef}
-        autoPlay
-        style={{display:"none" }}
-      ></video>
+        
       
           <Webcam
               className="webcam"
