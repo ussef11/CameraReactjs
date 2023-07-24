@@ -50,12 +50,13 @@ export default function Camtest() {
     <>
       <div className="webcam-container">
         <div className="webcam-img">
+      <div style={{textAlign:"center"}}>  <img   onClick={handleClick}  src={Switch}  /></div> 
           {img === "" ? (
       <>      <Webcam
               className="webcam"
               audio={false}
               ref={webcamRef}
-              screenshotFormat="image/jpeg"
+              screensshotFormat="image/jpeg"
               videoConstraints={videoConstraints}
               screenshotQuality={1}
               scale={5}
@@ -63,17 +64,17 @@ export default function Camtest() {
               style={{width:"100%"}}
              
             />
-            <img  onClick={capture}  src={Camera}  /></> 
+            <div style={{textAlign:"center"}}>      <img  className="dd" onClick={capture}  src={Camera}  /> </div>  </> 
           ) : (
             <> 
             <img
               src={img}
               alt="Scan"
-              style={{ width: "500px", height: "auto" }}
+              style={{ width: "100%", height: "auto" }}
             />
       
             
-            <img  onClick={() => setImg("")} src={Camera}  />
+      <div style={{textAlign:"center"}}><img  className="dd" onClick={() => setImg("")} src={Camera}  /> </div>
             
             </>
           )}
@@ -82,7 +83,7 @@ export default function Camtest() {
 
         {img && <button onClick={downloadImage}>Download</button>}
 
-        <img   onClick={handleClick}  src={Switch}  />
+        
       </div>
     </>
   );
