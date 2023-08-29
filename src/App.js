@@ -20,7 +20,7 @@ const App = () => {
         },
         function () {
           alert("Please  Active your GPS and  Try againe");
-          window.location.reload();
+          // window.location.reload();
         }
       );
     } else {
