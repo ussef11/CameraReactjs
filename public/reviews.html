@@ -1265,14 +1265,14 @@
 
 const url = new URL(window.location.href);
    const params = new URLSearchParams(url.search);
-const id = params.get('id');
+let id = params.get('id');
 
-console.log("idfromrRevvv"  ,  id);
-
+console.log(id); // This will log '100' to the console
+      const ids =  [1,2,3]
 
       const listR =  [ 
         {
-        id: 1,
+        id: 8641298039069,
         review:[
           
         {
@@ -1306,7 +1306,7 @@ console.log("idfromrRevvv"  ,  id);
     ]
 
 
-     let item = listR.find((elemet)=>elemet.id=== id)
+     let item = listR.find((elemet)=>elemet.id===  parseInt(id))
      console.log(item)
 
      let containerR = document.getElementById('swiper-wrapper-e2c81104f4568b6a7')
