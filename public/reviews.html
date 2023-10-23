@@ -1262,11 +1262,17 @@
 
 
     <script>
-      const ids =  [1,2,3]
+
+const url = new URL(window.location.href);
+   const params = new URLSearchParams(url.search);
+const id = params.get('id');
+
+console.log("idfromrRevvv"  ,  id); // This will log '100' to the console
+
 
       const listR =  [ 
         {
-        id: 1,
+        id: 8641298039069,
         review:[
           
         {
@@ -1275,8 +1281,8 @@
           img:'https://cdn.shopify.com/s/files/1/0813/7431/4781/files/Westley-Lifestyle-RachelOates-29_600x600_1_dc03e1f6-95ed-498c-aea6-1d5e2191ce3f.jpg'
         },
         {
-          name:"Adam L.",
-          rev:"Great quality and beautiful This is my second purchase now I have 4items and like them all. Easy...",
+          name:"Ali M.",
+          rev:"I bought two mediums initially because my dog is 17 and has been confused with his toilet habits...",
           img:'https://cdn.shopify.com/s/files/1/0813/7431/4781/files/Westley-Lifestyle-RachelOates-29_600x600_1_dc03e1f6-95ed-498c-aea6-1d5e2191ce3f.jpg'
         },
         {
@@ -1300,7 +1306,7 @@
     ]
 
 
-     let item = listR.find((elemet)=>elemet.id=== ids[0])
+     let item = listR.find((elemet)=>elemet.id=== id)
      console.log(item)
 
      let containerR = document.getElementById('swiper-wrapper-e2c81104f4568b6a7')
@@ -1310,9 +1316,6 @@
       item.review.forEach((ele)=>{
 
         containerR.innerHTML +=  `
-
-
-        
         <div
                 data-post-id="NJ3uENDO2"
                 data-ref="carousel-card"
